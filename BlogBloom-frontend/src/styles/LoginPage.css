@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+.blog-title {
+    font-family: 'Michroma', sans-serif;
+    margin-top: 1rem;
+    margin-left: 1rem;
+
+}
+.login-card{
+    display: flex;
+}
