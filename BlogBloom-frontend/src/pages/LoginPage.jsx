@@ -37,20 +37,16 @@ function LoginPage(){
         return <Navigate to={'/posts'}/>
     }
     return(
-        <Card style={{
-            display: "flex", marginTop: '5rem', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)'}}>
-        <div style={{width:'100%'}}>
+        <Card className="card-container" style={{ marginTop: '5rem', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)' }}>
+            <div style={{ width: '100%' }}>
                 <h1 className="blog-title">BlogBloom</h1>
                 <div>
-                    <img src="src\assets\loginImg.jpg" alt="img" style={{height:'25rem'}}/>
+                    <img src="src\assets\loginImg.jpg" alt="img" style={{ height: '100%' }} />
                 </div>
-        </div>
+            </div>
 
-            {/* ------------------------------------ */}
-
-        <div style={{width:'70%', display:"flex", justifyContent:"center", alignItems:"center"}}>
-            <form className="login" style={{marginRight:'1rem'}}>
-            {/* <h1>Login</h1> */}
+            <div className="login-form" style={{}}>
+                <form className="login" style={{}}>
             <ThemeProvider theme={theme}>
             <TextField
                 type="text" 
@@ -73,14 +69,12 @@ function LoginPage(){
                 onChange={(e) => setPassword(e.target.value)}
             />
             </ThemeProvider>
-            <Button variant="contained" onClick={handleLoginBtn}>Login</Button>
-            
+                    <Button variant="contained" onClick={handleLoginBtn}>Login</Button>
             <div>
                 <p style={{ justifyContent: "center", paddingLeft: '3rem' }} >
                     Don`t have an account?
                     <Link to={'/register'} style={{ textDecoration: 'none' }}><span style={{ marginLeft: '.5rem', cursor: 'pointer', color: '#152238', fontWeight: 'bold' }}>Register here</span></Link>
-                </p>
-                
+                        </p>    
             </div>
             </form>
         </div>

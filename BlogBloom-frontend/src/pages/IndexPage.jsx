@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
 import Post from "../components/Post"
+import { useLocation } from "react-router-dom";
 
 function IndexPage(){
     const [posts,setPosts]=useState([])
+    const { search } = useLocation()
     useEffect(() => {
         
-        fetch('http://localhost:3000/posts', {
+        fetch('http://localhost:3000/posts' + search, {
             method: 'GET',
         }).then(res => {
             res.json().then(posts => {
@@ -13,7 +15,7 @@ function IndexPage(){
                 setPosts(posts)
             });
         });
-    }, []);
+    }, [search]);
     return(
         <div>
             {posts.length>0 && posts.map(post=>(

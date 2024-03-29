@@ -9,7 +9,7 @@ a{
 }
 body{
     color: #222;
-    background-color: #ededed;
+    background-color: white;
     font-family: "Open Sans", sans-serif;
 }
 img{
@@ -40,7 +40,12 @@ header nav{
     display:flex;
     gap: 24px;
 }
-
+header div.search{
+    text-decoration: none;
+}
+.searchIcon{
+    margin-bottom: 0;
+}
 div.post{
     display: grid;
     grid-template-columns: 1fr;
@@ -158,4 +163,42 @@ div.post-page a.edit-btn{
 }
 a svg{
     height:20px;
+}
+
+
+
+.card-container {
+    display: flex;
+    align-items: center;
+    margin-top: 5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.card-container > div {
+    width: 100%;
+    max-width: 600px;
+}
+
+.blog-title {
+    text-align: center;
+}
+
+.login-form {
+    padding: 1rem;
+}
+
+.login-form form {
+    width: 100%;
+}
+
+.login-form form button {
+    width: 100%;
+}
+
+
+@media (max-width:635px) {
+    .card-container{
+        display: flex;
+        flex-direction: column;
+    }
 }

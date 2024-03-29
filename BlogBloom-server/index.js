@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express=require('express')
 const app=express()
 const cors=require('cors')
@@ -13,14 +14,15 @@ const fs=require('fs')
 
 const Post=require('./models/post')
 
-const SECRET='fdhjsfgjshfs34384gdf'
+const SECRET=process.env.SECRET_KEY
+const DB=process.env.DATABASE
 
 app.use(cors({credentials:true,origin:'http://localhost:5173'}))
 app.use(express.json())
 app.use(cookieParser())
 app.use('/uploads',express.static(__dirname + '/uploads'))
 
-mongoose.connect('mongodb+srv://adarsh5122002:oIPJooEM76JVU7uZ@cluster0.scnp9fh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(DB)
 
 app.post('/register',async (req, res)=>{
     const {username,password}=req.body
@@ -84,7 +86,6 @@ app.get('/me', (req, res) => {
 });
 
 
-
 app.post('/logout',(req,res)=>{
     res.cookie('token','').json('ok')
 })
@@ -124,13 +125,16 @@ app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
 
 
 app.get('/posts', async (req, res) => {
-     
-    res.json(
-        await Post.find()
-                .populate('author',['username'])
-                .sort({createdAt: -1})
-                .limit(20)
-    );
+    const query=req.query
+    // console.log(query)
+    const searchFilter={
+        title:{$regex:query.search, $options:"i"}
+    }
+    const posts=await Post.find(query.search?searchFilter:null)
+                    .populate('author',['username'])
+                    .sort({createdAt: -1})
+                    .limit(20)
+    res.status(200).json(posts)
 });
 
 app.get('/post/:id',async (req,res)=>{
@@ -204,6 +208,59 @@ app.get('/search', async (req, res) => {
   }
 });
 
+app.put('/user/:id', async (req, res) => {
+    const userId = req.params.id;
+    const { username} = req.body;
+
+    try {
+        // Find the user by ID
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Update the username if provided
+        if (username) {
+            user.username = username;
+        }
+
+        // Update the password if provided
+        // if (password) {
+        //     const hashedPassword = bcrypt.hashSync(password, salt);
+        //     user.password = hashedPassword;
+        // }
+
+        // Save the updated user information
+        await user.save();
+
+        res.json({ message: 'User updated successfully', user });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+app.delete('/user/:id', async (req, res) => {
+    const userId = req.params.id;
+
+    try {
+        // Find the user by ID
+        const user = await User.findById(userId);
+        console.log('User',user)
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Delete the user
+        await user.deleteOne();
+
+        res.json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 app.listen(3000,()=>{
