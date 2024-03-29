@@ -9,7 +9,7 @@ function PostPage(){
     const {userInfo}=useContext(UserContext)
     const {id}=useParams()
     useEffect(() => {
-        fetch(`http://localhost:3000/post/${id}`)
+        fetch(`${window.location.origin}/post/${id}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -46,7 +46,7 @@ function PostPage(){
                 </div>
             )}
             <div className="image">
-                <img src={`http://localhost:3000/${postInfo.postDoc.cover}`} alt="" />
+                <img src={`${window.location.origin}/${postInfo.postDoc.cover}`} alt="" />
             </div>
             
             <div className="content" dangerouslySetInnerHTML={{ __html: postInfo.postDoc.content }}/>

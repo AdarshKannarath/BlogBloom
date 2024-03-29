@@ -26,7 +26,7 @@ export default function EditPost() {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/post/${id}`)
+        fetch(`${window.location.origin}/post/${id}`)
             .then(response => {
                 response.json().then(postInfo => {
                     console.log(postInfo.postDoc.title)
@@ -47,7 +47,7 @@ export default function EditPost() {
         if (files?.[0]) {
             data.set('file', files?.[0]);
         }
-        const response = await fetch('http://localhost:3000/post', {
+        const response = await fetch(`${window.location.origin}/post`, {
             method: 'PUT',
             body: data,
             credentials: 'include',

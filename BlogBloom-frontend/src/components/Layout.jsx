@@ -1,6 +1,5 @@
 import { Outlet, useLocation, useParams } from "react-router-dom";
 import Header from "./Header";
-import HeaderWithLogo from "./HeaderWithLogo";
 function Layout() {
     const location = useLocation();
     const params = useParams();

@@ -15,7 +15,7 @@ function Header() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:3000/me', {
+        fetch(`${window.location.origin}/me`, {
             credentials: 'include',
         }).then(response => {
             response.json().then(userInfo => {
@@ -25,7 +25,7 @@ function Header() {
     }, []);
 
     function logoutBtn() {
-        fetch('http://localhost:3000/logout', {
+        fetch(`${window.location.origin}/logout`, {
             credentials: "include",
             method: 'POST'
         });

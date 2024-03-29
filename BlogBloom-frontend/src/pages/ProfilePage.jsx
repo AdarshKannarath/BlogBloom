@@ -23,7 +23,7 @@ function ProfilePage() {
         try {
             console.log('id at profile', userInfo.id)
 
-            const res = await fetch('http://localhost:3000/user/' + userInfo.id, {
+            const res = await fetch(`${window.location.origin}/user/` + userInfo.id, {
                 method: 'PUT',
                 credentials: 'include',
             })
@@ -45,7 +45,7 @@ function ProfilePage() {
     const handleUpdateBtn = async () => {
         setUpdated(false)
         try {
-            await fetch('http://localhost:3000/user/' + userInfo.id, {
+            await fetch(`${window.location.origin}/user/` + userInfo.id, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -67,7 +67,7 @@ function ProfilePage() {
 
     const handleDeleteBtn = async () => {
         try {
-            await fetch('http://localhost:3000/user/' + userInfo.id, {
+            await fetch(`${window.location.origin}/user/` + userInfo.id, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {

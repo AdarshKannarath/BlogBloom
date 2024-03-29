@@ -12,6 +12,9 @@ const multer=require('multer')
 const uploadMiddleware=multer({dest:'uploads/'})
 const fs=require('fs')
 
+const PORT=process.env.PORT || 3000;
+
+
 const Post=require('./models/post')
 
 const SECRET=process.env.SECRET_KEY
@@ -23,6 +26,8 @@ app.use(cookieParser())
 app.use('/uploads',express.static(__dirname + '/uploads'))
 
 mongoose.connect(DB)
+
+
 
 app.post('/register',async (req, res)=>{
     const {username,password}=req.body
@@ -263,6 +268,6 @@ app.delete('/user/:id', async (req, res) => {
 });
 
 
-app.listen(3000,()=>{
+app.listen(PORT,()=>{
     console.log("Server started")
 })
