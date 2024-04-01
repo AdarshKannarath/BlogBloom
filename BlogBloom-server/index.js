@@ -30,11 +30,12 @@ mongoose.connect(DB)
 
 
 app.post('/register',async (req, res)=>{
-    const {username,password}=req.body
+    const {username,password, email}=req.body
     try {
         const userDoc=await User.create({
             username,
             password:bcrypt.hashSync(password,salt),
+            email
         })
         res.json(userDoc)
     } catch (error) {
@@ -261,6 +262,42 @@ app.delete('/user/:id', async (req, res) => {
         await user.deleteOne();
 
         res.json({ message: 'User deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+// Add delete post route
+app.delete('/post/:id', async (req, res) => {
+    const postId = req.params.id;
+    // console.log(postId)
+    try {
+        // Find the post by ID
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Check if the user is authorized to delete the post (e.g., if the user is the author)
+        const { token } = req.cookies;
+        jwt.verify(token, SECRET, {}, async (err, info) => {
+            if (err) {
+                return res.status(401).json({ error: 'Unauthorized' });
+            }
+
+            // Check if the user is the author of the post
+            if (post.author.toString() !== info.id) {
+                return res.status(403).json({ error: 'You are not authorized to delete this post' });
+            }
+
+            // Delete the post
+            await post.deleteOne();
+
+            res.json({ message: 'Post deleted successfully' });
+        });
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Internal Server Error' });

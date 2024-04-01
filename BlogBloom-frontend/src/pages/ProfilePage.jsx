@@ -23,7 +23,7 @@ function ProfilePage() {
         try {
             console.log('id at profile', userInfo.id)
 
-            const res = await fetch(`${window.location.origin}/user/` + userInfo.id, {
+            const res = await fetch(`http://localhost:3000/user/` + userInfo.id, {
                 method: 'PUT',
                 credentials: 'include',
             })
@@ -45,7 +45,7 @@ function ProfilePage() {
     const handleUpdateBtn = async () => {
         setUpdated(false)
         try {
-            await fetch(`${window.location.origin}/user/` + userInfo.id, {
+            await fetch(`http://localhost:3000/user/` + userInfo.id, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {
@@ -67,7 +67,7 @@ function ProfilePage() {
 
     const handleDeleteBtn = async () => {
         try {
-            await fetch(`${window.location.origin}/user/` + userInfo.id, {
+            await fetch(`http://localhost:3000/user/` + userInfo.id, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {
@@ -124,7 +124,7 @@ function ProfilePage() {
                         /> */}
                     </ThemeProvider>
                     <Link><Button variant="contained" style={{ marginBottom: '1rem' }} onClick={handleUpdateBtn}>Update</Button></Link>
-                    <Link><Button variant="contained" onClick={handleDeleteBtn} >Delete</Button></Link>
+                    <Link><Button type='submit' variant="contained" onClick={handleDeleteBtn} >Delete</Button></Link>
                     {updated && <h3 style={{ color: '#4caf50', fontSize: '0.875rem' }}>user updated successfully!</h3>}
                 </form>
             </div>

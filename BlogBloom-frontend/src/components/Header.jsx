@@ -8,10 +8,9 @@ import { useNavigate } from "react-router-dom";
 function Header() {
     const { userInfo, setUserInfo } = useContext(UserContext);
     const { username, id } = userInfo;
-    console.log("userId", id)
-    console.log("userInfo", userInfo)
 
     const [search, setSearch] = useState("");
+    const [showMenu, setShowMenu] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,7 +24,7 @@ function Header() {
     }, []);
 
     function logoutBtn() {
-        fetch(`${window.location.origin}/logout`, {
+        fetch(`http://localhost:3000/logout`, {
             credentials: "include",
             method: 'POST'
         });
@@ -33,30 +32,42 @@ function Header() {
     }
 
     return (
-        <header>
-            <Link to="/posts" className="blog-title" style={{ fontWeight: 'bold', fontSize: '30px', marginTop: ".5rem" }}>BlogBloom</Link>
+        <header className="header">
+            <div className="header-left">
+                <Link to="/posts" className="blog-title">BlogBloom</Link>
 
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }} className="search">
-                <div style={{ marginRight: '.5rem' }}>
-                    <BsSearch className="searchIcon" onClick={() => navigate(search ? "?search=" + search : navigate('/posts'))} />
+                <div className='search-container'>
+                    <p>
+                        <BsSearch className="searchIcon" onClick={() => navigate(search ? "?search=" + search : navigate('/posts'))} />
+                    </p>
+
+                    <input onChange={(e) => setSearch(e.target.value)} className='outline-none px-3' placeholder='Search by post' type='text' />
                 </div>
-                <input onChange={(e) => setSearch(e.target.value)} type="search" placeholder="Search by post" style={{ outline: '2px solid transparent', boxShadow: 'none', backgroundColor: "white" }} />
             </div>
+            <Link to={'/create'} style={{ fontSize: 'large', marginLeft: '190px' }}>Write</Link>
+            <div className="header-right">
+                <div className="hamburger-menu" onClick={() => setShowMenu(!showMenu)}>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                    <div className="line"></div>
+                </div>
+                {showMenu && (
+                    <div className="menu">
+                        {username ? (
+                            <div>
 
-            <nav>
-                {username ? (
-                    <div>
-                        <Link to={'/create'} style={{ marginRight: '1rem', fontSize: '20px' }}>Write</Link>
-                        <Link to={'/login'} onClick={logoutBtn} style={{ fontSize: '20px', cursor: 'pointer' }}>Logout</Link>
-                        <Link to={"/profile/" + id} style={{ fontSize: '20px', marginLeft: '1rem' }}>Profile</Link>
-                    </div>
-                ) : (
-                    <div>
-                            <Link to="/login" style={{ marginRight: '1rem' }}>Login</Link>
-                        <Link to="/register">Register</Link>
+                                <Link to={"/profile/" + id} className="menu-item">Profile</Link>
+                                <Link to={'/login'} onClick={logoutBtn} className="menu-item">Logout</Link>
+                            </div>
+                        ) : (
+                            <div>
+                                <Link to="/login" className="menu-item">Login</Link>
+                                <Link to="/register" className="menu-item">Register</Link>
+                            </div>
+                        )}
                     </div>
                 )}
-            </nav>
+            </div>
         </header>
     );
 }

@@ -17,7 +17,7 @@ function LoginPage() {
 
     async function handleLoginBtn(e) {
         e.preventDefault()
-        const response = await fetch(`${window.location.origin}/login`, {
+        const response = await fetch(`http://localhost:3000/login`, {
             method: 'POST',
             body: JSON.stringify({ username, password }),
             headers: { 'Content-Type': 'application/json' },
@@ -38,15 +38,16 @@ function LoginPage() {
     }
     return (
         <Card className="card-container" style={{ marginTop: '5rem', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)' }}>
-            <div style={{ width: '100%' }}>
+            <div style={{ width: '83rem' }}>
                 <h1 className="blog-title">BlogBloom</h1>
                 <div>
-                    <img src="src\assets\loginImg.jpg" alt="img" style={{ height: '100%' }} />
+                    <img src="src\assets\loginImg.jpg" alt="img" style={{ height: '27rem' }} />
                 </div>
             </div>
 
-            <div className="login-form" style={{}}>
-                <form className="login" style={{}}>
+            <div className="login-form">
+                {/* <h1 style={{ display: "flex", justifyContent: "center", fontWeight: 'bold', marginBottom: '30px', fontSize: 'large' }}>Login!</h1> */}
+                <form className="login" autoComplete="off" type='submit'>
                     <ThemeProvider theme={theme}>
                         <TextField
                             type="text"

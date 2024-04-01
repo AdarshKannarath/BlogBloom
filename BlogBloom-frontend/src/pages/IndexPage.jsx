@@ -7,7 +7,7 @@ function IndexPage(){
     const { search } = useLocation()
     useEffect(() => {
         
-        fetch(`${window.location.origin}/posts` + search, {
+        fetch(`http://localhost:3000/posts` + search, {
             method: 'GET',
         }).then(res => {
             res.json().then(posts => {

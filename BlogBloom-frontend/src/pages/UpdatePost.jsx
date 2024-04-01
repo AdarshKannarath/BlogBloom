@@ -26,7 +26,7 @@ export default function EditPost() {
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
-        fetch(`${window.location.origin}/post/${id}`)
+        fetch(`http://localhost:3000/post/${id}`)
             .then(response => {
                 response.json().then(postInfo => {
                     console.log(postInfo.postDoc.title)
@@ -47,7 +47,7 @@ export default function EditPost() {
         if (files?.[0]) {
             data.set('file', files?.[0]);
         }
-        const response = await fetch(`${window.location.origin}/post`, {
+        const response = await fetch(`http://localhost:3000/post`, {
             method: 'PUT',
             body: data,
             credentials: 'include',
@@ -82,7 +82,7 @@ export default function EditPost() {
                 formats={formats}
                 onChange={(newValue) => setContent(newValue)}
             />
-            <button style={{ marginTop: '5px' }}>Update post</button>
+            <button style={{ marginTop: '5px', backgroundColor: '#555', color: 'white' }}>Update post</button>
         </form>
     );
 }

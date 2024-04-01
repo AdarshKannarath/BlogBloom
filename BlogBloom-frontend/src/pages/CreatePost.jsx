@@ -33,7 +33,7 @@ function CreatePost(){
         data.set('summary',summary)
         data.set('content',content)
         data.set('file',files[0])
-        const response = await fetch(`${window.location.origin}/post`, {
+        const response = await fetch(`http://localhost:3000/post`, {
             method:'POST',
             body:data,
             credentials: 'include',
@@ -70,7 +70,7 @@ function CreatePost(){
                 formats={formats}
                 onChange={(newValue)=>setContent(newValue)}
             />
-            <button style={{marginTop:'0.5rem'}} onClick={handleCreatePostBtn}>Create Post</button>
+            <button className="create-btn" style={{ marginTop: '0.5rem', backgroundColor: '#555', color: 'white' }} onClick={handleCreatePostBtn}>Create Post</button>
         </form>
     )
 }
