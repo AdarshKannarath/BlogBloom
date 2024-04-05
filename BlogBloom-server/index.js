@@ -17,7 +17,7 @@ const PORT=process.env.PORT || 3000;
 
 const Post=require('./models/post')
 
-const SECRET=process.env.SECRET_KEY
+const SECRET=process.env.SECRET_KEY;
 const DB=process.env.DATABASE
 
 app.use(cors({credentials:true,origin:'http://localhost:5173'}))
@@ -25,7 +25,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/uploads',express.static(__dirname + '/uploads'))
 
-mongoose.connect(DB)
+mongoose.connect('mongodb+srv://adarsh5122002:oIPJooEM76JVU7uZ@cluster0.scnp9fh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 
 
 

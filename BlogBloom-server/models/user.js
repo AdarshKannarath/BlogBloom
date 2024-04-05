@@ -11,13 +11,16 @@ const UserSchema=new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        lowercase: true
     },
     password:{
         type: String, 
-        required: true
+        required: true,
+        min:[4,"Password must contain at least 4 characters!"]
     }
-});
+},{timestamps: true}
+);
 
 const UserModel=model('User',UserSchema)
 module.exports=UserModel

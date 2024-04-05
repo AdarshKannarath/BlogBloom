@@ -24,6 +24,7 @@ main{
     margin: 0 auto;
 }
 header{
+    /* position:fixed; */
     display:flex;
     justify-content:space-between;
     margin-top: 20px;

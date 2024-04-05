@@ -125,7 +125,7 @@ function ProfilePage() {
                     </ThemeProvider>
                     <Link><Button variant="contained" style={{ marginBottom: '1rem' }} onClick={handleUpdateBtn}>Update</Button></Link>
                     <Link><Button type='submit' variant="contained" onClick={handleDeleteBtn} >Delete</Button></Link>
-                    {updated && <h3 style={{ color: '#4caf50', fontSize: '0.875rem' }}>user updated successfully!</h3>}
+                    {updated && <h3 style={{ color: '#4caf50', fontSize: '0.875rem', fontWeight: 'bold' }}>user updated successfully!</h3>}
                 </form>
             </div>
         </Card>
